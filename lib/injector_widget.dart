@@ -1,8 +1,10 @@
+import 'package:axetop_test_task/bloc/catalog/bloc.dart';
 import 'package:axetop_test_task/service/api/api_service.dart';
 import 'package:axetop_test_task/service/api/dio/dio_api_service.dart';
 import 'package:axetop_test_task/service/api/parser.dart';
 import 'package:axetop_test_task/service/api/xml/xml_parser.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class InjectorWidget extends StatelessWidget {
@@ -26,7 +28,16 @@ class InjectorWidget extends StatelessWidget {
           ),
         ),
       ],
-      child: child,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => CatalogBloc(
+              Provider.of<ApiService>(context, listen: false),
+            ),
+          ),
+        ],
+        child: child,
+      ),
     );
   }
 }

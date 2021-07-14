@@ -1,6 +1,4 @@
-import 'package:axetop_test_task/model/cd.dart';
-import 'package:axetop_test_task/widgets/cd_details_widget.dart';
-import 'package:axetop_test_task/widgets/cd_list_item_widget.dart';
+import 'package:axetop_test_task/widgets/cd_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -28,36 +26,11 @@ class MainScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            ListView(),
+            const CDListWidget(),
             ListView(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildListItem(CD cd, BuildContext context) {
-    return CDListItemWidget(
-      cd: cd,
-      onClick: (cd) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: CDDetailsWidget(
-              cd: cd,
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Close'),
-              )
-            ],
-          ),
-        );
-      },
-      onAddToCart: (cd) {},
     );
   }
 }
