@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cd.freezed.dart';
+part 'cd.g.dart';
 
 @freezed
 class CD with _$CD {
@@ -12,4 +13,6 @@ class CD with _$CD {
     required double price,
     required int year,
   }) = _CD;
+
+  factory CD.fromJson(Map<String, dynamic> json) => _$CDFromJson(json);
 }

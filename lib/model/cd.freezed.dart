@@ -12,6 +12,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+CD _$CDFromJson(Map<String, dynamic> json) {
+  return _CD.fromJson(json);
+}
+
 /// @nodoc
 class _$CDTearOff {
   const _$CDTearOff();
@@ -32,6 +36,10 @@ class _$CDTearOff {
       year: year,
     );
   }
+
+  CD fromJson(Map<String, Object> json) {
+    return CD.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -46,6 +54,7 @@ mixin _$CD {
   double get price => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CDCopyWith<CD> get copyWith => throw _privateConstructorUsedError;
 }
@@ -171,7 +180,7 @@ class __$CDCopyWithImpl<$Res> extends _$CDCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_CD implements _CD {
   const _$_CD(
       {required this.title,
@@ -180,6 +189,8 @@ class _$_CD implements _CD {
       required this.company,
       required this.price,
       required this.year});
+
+  factory _$_CD.fromJson(Map<String, dynamic> json) => _$_$_CDFromJson(json);
 
   @override
   final String title;
@@ -232,6 +243,11 @@ class _$_CD implements _CD {
   @JsonKey(ignore: true)
   @override
   _$CDCopyWith<_CD> get copyWith => __$CDCopyWithImpl<_CD>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CDToJson(this);
+  }
 }
 
 abstract class _CD implements CD {
@@ -242,6 +258,8 @@ abstract class _CD implements CD {
       required String company,
       required double price,
       required int year}) = _$_CD;
+
+  factory _CD.fromJson(Map<String, dynamic> json) = _$_CD.fromJson;
 
   @override
   String get title => throw _privateConstructorUsedError;
