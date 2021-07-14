@@ -1,3 +1,5 @@
+import 'package:axetop_test_task/bloc/cart/bloc.dart';
+import 'package:axetop_test_task/bloc/cart/event.dart';
 import 'package:axetop_test_task/bloc/catalog/bloc.dart';
 import 'package:axetop_test_task/bloc/catalog/state.dart';
 import 'package:axetop_test_task/model/cd.dart';
@@ -61,7 +63,11 @@ class CDListWidget extends StatelessWidget {
           ),
         );
       },
-      onAddToCart: (cd) {},
+      onAddToCart: (cd) {
+        BlocProvider.of<CartBloc>(context).add(
+          CartBlocEvent.addToCart(cd: cd),
+        );
+      },
     );
   }
 }

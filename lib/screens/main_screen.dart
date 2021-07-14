@@ -1,3 +1,4 @@
+import 'package:axetop_test_task/widgets/cart_widget.dart';
 import 'package:axetop_test_task/widgets/cd_list_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -24,10 +25,10 @@ class MainScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            const CDListWidget(),
-            ListView(),
+            CDListWidget(),
+            CartWidget(),
           ],
         ),
       ),
