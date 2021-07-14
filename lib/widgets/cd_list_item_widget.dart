@@ -6,12 +6,12 @@ class CDListItemWidget extends StatelessWidget {
     Key? key,
     required this.cd,
     required this.onClick,
-    required this.onAddToCart,
+    this.onAddToCart,
   }) : super(key: key);
 
   final CD cd;
   final void Function(CD) onClick;
-  final void Function(CD) onAddToCart;
+  final void Function(CD)? onAddToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,13 @@ class CDListItemWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text('${cd.price}\$'),
-                  IconButton(
-                    onPressed: () => onAddToCart(cd),
-                    icon: const Icon(
-                      Icons.add_shopping_cart,
+                  if (onAddToCart != null)
+                    IconButton(
+                      onPressed: () => onAddToCart!(cd),
+                      icon: const Icon(
+                        Icons.add_shopping_cart,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ],
