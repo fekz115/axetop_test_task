@@ -12,7 +12,9 @@ dependencies:
   dio: ^4.0.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^7.0.1
   freezed_annotation: ^0.14.2
+  provider: ^5.0.0
   xml: ^5.1.2
 
 dev_dependencies:
