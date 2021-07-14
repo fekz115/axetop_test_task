@@ -1,16 +1,19 @@
 import 'package:axetop_test_task/bloc/cart/event.dart';
 import 'package:axetop_test_task/bloc/cart/state.dart';
+import 'package:axetop_test_task/service/cart_capacity_listener/cart_capacity_listener.dart';
 import 'package:axetop_test_task/service/persistance/persistance_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartBloc extends Bloc<CartBlocEvent, CartBlocState> {
   CartBloc(
-    this._persistanceService,
-  ) : super(const CartBlocState.loading()) {
+    this._persistanceService, {
+    this.cartCapacityListener,
+  }) : super(const CartBlocState.loading()) {
     add(const CartBlocEvent.init());
   }
 
   final PersistanceService _persistanceService;
+  final CartCapacityListener? cartCapacityListener;
 
   @override
   Stream<CartBlocState> mapEventToState(CartBlocEvent event) => event.map(
@@ -28,9 +31,11 @@ class CartBloc extends Bloc<CartBlocEvent, CartBlocState> {
     await _persistanceService.addToCart(event.cd);
     yield* state.maybeMap(
       loaded: (state) async* {
-        if(!state.list.contains(event.cd)) {
+        if (!state.list.contains(event.cd)) {
+          final newList = state.list..add(event.cd);
+          await cartCapacityListener?.setCapacity(newList.length);
           yield state.copyWith(
-            list: state.list..add(event.cd),
+            list: newList,
           );
         }
       },
@@ -43,8 +48,10 @@ class CartBloc extends Bloc<CartBlocEvent, CartBlocState> {
     await _persistanceService.removeFromCart(event.cd);
     yield* state.maybeMap(
       loaded: (state) async* {
+        final newList = state.list..remove(event.cd);
+        await cartCapacityListener?.setCapacity(newList.length);
         yield state.copyWith(
-          list: state.list..remove(event.cd),
+          list: newList,
         );
       },
       orElse: () async* {},
