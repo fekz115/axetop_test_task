@@ -24,6 +24,7 @@ class CartBloc extends Bloc<CartBlocEvent, CartBlocState> {
 
   Stream<CartBlocState> _onInit(InitCartBlocEvent event) async* {
     final list = await _persistanceService.getCartItems();
+    await cartCapacityListener?.setCapacity(list.length);
     yield CartBlocState.loaded(list: list);
   }
 
