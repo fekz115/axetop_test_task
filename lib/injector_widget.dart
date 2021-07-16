@@ -4,6 +4,8 @@ import 'package:axetop_test_task/service/api/api_service.dart';
 import 'package:axetop_test_task/service/api/dio/dio_api_service.dart';
 import 'package:axetop_test_task/service/api/parser.dart';
 import 'package:axetop_test_task/service/api/xml/xml_parser.dart';
+import 'package:axetop_test_task/service/cart_capacity_listener/cart_capacity_listener.dart';
+import 'package:axetop_test_task/service/cart_capacity_listener/plugin_cart_capacity_listener/plugin_cart_capacity_listener.dart';
 import 'package:axetop_test_task/service/persistance/objectdb/objectdb_persistance_service.dart';
 import 'package:axetop_test_task/service/persistance/persistance_service.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,9 @@ class InjectorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<CartCapacityListener>(
+          create: (_) => PluginCartCapacityListener(),
+        ),
         Provider<PersistanceService>(
           create: (_) => ObjectDbPersistanceService(),
         ),
@@ -39,7 +44,9 @@ class InjectorWidget extends StatelessWidget {
           BlocProvider(
             create: (context) => CartBloc(
               Provider.of<PersistanceService>(context, listen: false),
+              cartCapacityListener: Provider.of<CartCapacityListener>(context, listen: false),
             ),
+            lazy: false,
           ),
           BlocProvider(
             create: (context) => CatalogBloc(
