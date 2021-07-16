@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:axetop_test_task/model/cd.dart';
 import 'package:axetop_test_task/service/persistance/persistance_service.dart';
 import 'package:objectdb/objectdb.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:objectdb/src/objectdb_storage_filesystem.dart';
 
 class ObjectDbPersistanceService with PersistanceService {
@@ -21,7 +20,6 @@ class ObjectDbPersistanceService with PersistanceService {
             .then((value) => '${value.path}/$dbFileName')
             .then((value) async {
           final file = File(value);
-          print(value);
           if (!await file.exists()) {
             await file.create(recursive: true);
           }
