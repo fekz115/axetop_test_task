@@ -16,10 +16,12 @@ class ObjectDbPersistanceService with PersistanceService {
   Future<ObjectDB> _initDb() async {
     final db = ObjectDB(
       FileSystemStorage(
-        await getApplicationDocumentsDirectory()
+        // BUG: can't use path_provider with other plugins, it throws MissingPluginException
+        await Future.value(Directory('/data/user/0/com.example.axetop_test_task/app_flutter'))
             .then((value) => '${value.path}/$dbFileName')
             .then((value) async {
           final file = File(value);
+          print(value);
           if (!await file.exists()) {
             await file.create(recursive: true);
           }
