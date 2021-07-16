@@ -354,6 +354,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  notification_cart_capacity:
+    dependency: "direct main"
+    description:
+      path: notification_cart_capacity
+      relative: true
+    source: path
+    version: "0.0.1"
   objectdb:
     dependency: "direct main"
     description:
@@ -620,4 +627,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.13.0 <3.0.0"
-  flutter: ">=1.20.0"
+  flutter: ">=2.2.0"
